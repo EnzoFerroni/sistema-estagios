@@ -152,11 +152,11 @@ export default function GerenciarVagasEmpresaPage() {
                         <h4 style={{ color: '#1976d2', marginBottom: 12 }}>Estudantes inscritos</h4>
                         {estudantesPorVaga[vaga.id] === undefined ? (
                           <div style={{ color: '#888' }}>Carregando...</div>
-                        ) : estudantesPorVaga[vaga.id].length === 0 ? (
+                        ) : (Array.isArray(estudantesPorVaga[vaga.id]) && estudantesPorVaga[vaga.id].length === 0) ? (
                           <div style={{ color: '#888' }}>Nenhum estudante inscrito nesta vaga.</div>
                         ) : (
                           <ul style={{ paddingLeft: 18 }}>
-                            {estudantesPorVaga[vaga.id].map((i) => (
+                            {(Array.isArray(estudantesPorVaga[vaga.id]) ? estudantesPorVaga[vaga.id] : []).map((i) => (
                               <li key={i.id} style={{ marginBottom: 8, color: '#222', background: '#fff', borderRadius: 6, padding: '8px 12px', boxShadow: '0 1px 4px #0001', fontSize: 16 }}>
                                 <span style={{ fontWeight: 600 }}>{i.estudante?.nome} {i.estudante?.sobrenome}</span> - <span style={{ color: '#1976d2' }}>{i.estudante?.email}</span> <span style={{ color: '#555', fontSize: 14 }}>({i.estudante?.cargo})</span>
                               </li>

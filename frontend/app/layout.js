@@ -34,19 +34,19 @@ function Navbar() {
     >
       <a href="/" style={{ color: "#fff", textDecoration: "none", fontWeight: "bold", fontSize: 22 }}>Sistema de Estágios</a>
       <a href="/areadousuario" style={{ color: "#fff", textDecoration: "none" }}>Área do Usuário</a>
-      <a href="/areadousuario/vagasestudante" style={{ color: "#fff", textDecoration: "none" }}>Vagas para Estudante</a>
-      <a href="/areadousuario/empresa" style={{ color: "#fff", textDecoration: "none" }}>Dashboard Empresa</a>
-      <a href="/areadousuario/gerenciarvagasempresa" style={{ color: "#fff", textDecoration: "none" }}>Gerenciar Vagas (Empresa)</a>
-      <a href="/perfil" style={{ color: "#fff", textDecoration: "none" }}>Meu Perfil</a>
+      {/* <a href="/areadousuario/vagasestudante" style={{ color: "#fff", textDecoration: "none" }}>Vagas para Estudante</a>
+      <a href="/areadousuario/gerenciarvagasempresa" style={{ color: "#fff", textDecoration: "none" }}>Dashboard Empresa</a> */}
+      {/* <a href="/areadousuario/gerenciarvagasempresa" style={{ color: "#fff", textDecoration: "none" }}>Gerenciar Vagas (Empresa)</a> */}
+      {/* <a href="/perfil" style={{ color: "#fff", textDecoration: "none" }}>Meu Perfil</a> */}
       <a href="/login" style={{ color: "#fff", textDecoration: "none" }}>Login</a>
-      <a href="/estudantes" style={{ color: "#fff", textDecoration: "none" }}>Estudantes (CRUD)</a>
+      {/* <a href="/estudantes" style={{ color: "#fff", textDecoration: "none" }}>Estudantes (CRUD)</a>
       <a href="/empresas" style={{ color: "#fff", textDecoration: "none" }}>Empresas (CRUD)</a>
       <a href="/vagas" style={{ color: "#fff", textDecoration: "none" }}>Vagas (CRUD)</a>
       <a href="/avaliacoes" style={{ color: "#fff", textDecoration: "none" }}>Avaliações (CRUD)</a>
-      <a href="/admins" style={{ color: "#fff", textDecoration: "none" }}>Administradores (CRUD)</a>
+      <a href="/admins" style={{ color: "#fff", textDecoration: "none" }}>Administradores (CRUD)</a> */}
       {/* Links extras para facilitar testes */}
-      <a href="/api" style={{ color: "#fff", textDecoration: "none" }}>/api</a>
-      <a href="/api/hello" style={{ color: "#fff", textDecoration: "none" }}>/api/hello</a>
+      {/* <a href="/api" style={{ color: "#fff", textDecoration: "none" }}>/api</a>
+      <a href="/api/hello" style={{ color: "#fff", textDecoration: "none" }}>/api/hello</a> */}
       {/* Indicativo de usuário logado + botão de perfil */}
       {tipo && nome && (
         <span style={{

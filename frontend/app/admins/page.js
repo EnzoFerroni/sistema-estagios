@@ -90,7 +90,7 @@ export default function AdminsPage() {
             </tr>
           </thead>
           <tbody>
-            {admins.map((a) => (
+            {(Array.isArray(admins) ? admins : []).map((a) => (
               <tr key={a.id}>
                 <td style={{ padding: 8, textAlign: 'center', color: '#222' }}>{a.id}</td>
                 <td style={{ padding: 8, color: '#222' }}>{a.nome}</td>

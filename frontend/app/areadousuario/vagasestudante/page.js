@@ -105,7 +105,7 @@ export default function VagasEstudantePage() {
                 <td style={{ padding: 8 }}>{vaga.empresa?.nome}</td>
                 <td style={{ padding: 8 }}>{vaga.empresa?.setor}</td>
                 <td style={{ padding: 8 }}>
-                  {inscritas.some(i => i.vaga?.id === vaga.id) ? (
+                  {(Array.isArray(inscritas) ? inscritas : []).some(i => i.vaga?.id === vaga.id) ? (
                     <span style={{ color: '#1976d2', fontWeight: 'bold' }}>Inscrito</span>
                   ) : (
                     <button onClick={() => inscrever(vaga.id)} style={{ background: '#1976d2', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 'bold', cursor: 'pointer' }}>Inscrever-se</button>

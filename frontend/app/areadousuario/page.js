@@ -12,7 +12,7 @@ export default function AreaDoUsuarioPage() {
     if (localStorage.getItem("tipo") === "estudante") {
       window.location.href = "/areadousuario/vagasestudante";
     } else if (localStorage.getItem("tipo") === "empresa") {
-      window.location.href = "/areadousuario/empresa";
+      window.location.href = "/areadousuario/gerenciarvagasempresa";
     }
   }, []);
 

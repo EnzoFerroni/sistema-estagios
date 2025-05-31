@@ -67,10 +67,10 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {dados.topEmpresas.length === 0 && (
+            {(Array.isArray(dados.topEmpresas) ? dados.topEmpresas : []).length === 0 && (
               <tr><td colSpan={3} style={{ textAlign: 'center', padding: 16, color: '#888' }}>Nenhuma empresa cadastrada</td></tr>
             )}
-            {dados.topEmpresas.map((e, i) => (
+            {(Array.isArray(dados.topEmpresas) ? dados.topEmpresas : []).map((e, i) => (
               <tr key={e.id}>
                 <td style={{ padding: 8, textAlign: 'center' }}>{i + 1}</td>
                 <td style={{ padding: 8 }}>{e.nome}</td>

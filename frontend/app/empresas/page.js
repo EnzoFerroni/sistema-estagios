@@ -99,7 +99,7 @@ export default function EmpresasPage() {
             </tr>
           </thead>
           <tbody>
-            {empresas.map((e) => (
+            {(Array.isArray(empresas) ? empresas : []).map((e) => (
               <tr key={e.id}>
                 <td style={{ padding: 8, textAlign: 'center', color: '#222' }}>{e.id}</td>
                 <td style={{ padding: 8, color: '#222' }}>{e.nome}</td>

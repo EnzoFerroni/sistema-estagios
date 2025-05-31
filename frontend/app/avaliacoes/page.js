@@ -81,13 +81,13 @@ export default function AvaliacoesPage() {
         <input name="nota" placeholder="Nota" type="number" min="0" max="10" value={form.nota} onChange={handleChange} required style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc', minWidth: 80 }} />
         <select name="estudante" value={form.estudante?.id || ""} onChange={handleEstudanteChange} required style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc', minWidth: 120 }}>
           <option value="">Selecione o estudante</option>
-          {estudantes.map((e) => (
+          {(Array.isArray(estudantes) ? estudantes : []).map((e) => (
             <option key={e.id} value={e.id}>{e.nome}</option>
           ))}
         </select>
         <select name="empresa" value={form.empresa?.id || ""} onChange={handleEmpresaChange} required style={{ padding: 8, borderRadius: 6, border: '1px solid #ccc', minWidth: 120 }}>
           <option value="">Selecione a empresa</option>
-          {empresas.map((e) => (
+          {(Array.isArray(empresas) ? empresas : []).map((e) => (
             <option key={e.id} value={e.id}>{e.nome}</option>
           ))}
         </select>
@@ -107,7 +107,7 @@ export default function AvaliacoesPage() {
             </tr>
           </thead>
           <tbody>
-            {avaliacoes.map((a) => (
+            {(Array.isArray(avaliacoes) ? avaliacoes : []).map((a) => (
               <tr key={a.id}>
                 <td style={{ padding: 8, textAlign: 'center', color: '#222' }}>{a.id}</td>
                 <td style={{ padding: 8, color: '#222' }}>{a.comentario}</td>

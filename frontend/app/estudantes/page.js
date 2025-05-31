@@ -99,7 +99,7 @@ export default function EstudantesPage() {
             </tr>
           </thead>
           <tbody>
-            {estudantes.map((e) => (
+            {(Array.isArray(estudantes) ? estudantes : []).map((e) => (
               <tr key={e.id}>
                 <td style={{ padding: 8, textAlign: 'center', color: '#222' }}>{e.id}</td>
                 <td style={{ padding: 8, color: '#222' }}>{e.nome}</td>
