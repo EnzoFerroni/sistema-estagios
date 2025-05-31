@@ -63,16 +63,18 @@ export default function AreaDoUsuarioEmpresa() {
             <tr>
               <th style={{ padding: 10 }}>Título</th>
               <th style={{ padding: 10 }}>Descrição</th>
+              <th style={{ padding: 10 }}>Competência</th>
             </tr>
           </thead>
           <tbody>
             {vagas.length === 0 && (
-              <tr><td colSpan={2} style={{ textAlign: 'center', color: '#888' }}>Nenhuma vaga cadastrada</td></tr>
+              <tr><td colSpan={3} style={{ textAlign: 'center', color: '#888' }}>Nenhuma vaga cadastrada</td></tr>
             )}
             {vagas.map((v) => (
               <tr key={v.id}>
                 <td style={{ padding: 8 }}>{v.titulo}</td>
                 <td style={{ padding: 8 }}>{v.descricao}</td>
+                <td style={{ padding: 8 }}>{v.competencia}</td>
               </tr>
             ))}
           </tbody>

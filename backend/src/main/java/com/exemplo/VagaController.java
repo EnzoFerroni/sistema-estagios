@@ -11,7 +11,12 @@ public class VagaController {
     private VagaRepository vagaRepository;
 
     @GetMapping
-    public List<Vaga> listar() {
+    public List<Vaga> listar(@RequestParam(value = "empresaId", required = false) Long empresaId) {
+        if (empresaId != null) {
+            return vagaRepository.findAll().stream()
+                .filter(v -> v.getEmpresa() != null && v.getEmpresa().getId().equals(empresaId))
+                .toList();
+        }
         return vagaRepository.findAll();
     }
 

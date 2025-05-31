@@ -9,6 +9,7 @@ public class Vaga {
     private Long id;
     private String titulo;
     private String descricao;
+    private String competencia;
     @ManyToOne
     private Empresa empresa;
     // getters e setters
@@ -35,6 +36,14 @@ public class Vaga {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getCompetencia() {
+        return competencia;
+    }
+
+    public void setCompetencia(String competencia) {
+        this.competencia = competencia;
     }
 
     public Empresa getEmpresa() {

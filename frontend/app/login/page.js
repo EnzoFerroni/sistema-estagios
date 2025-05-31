@@ -8,7 +8,7 @@ export default function LoginPage() {
   const [form, setForm] = useState({ email: "", senha: "" });
   const [erro, setErro] = useState("");
   const [showCadastro, setShowCadastro] = useState("");
-  const [cadastroForm, setCadastroForm] = useState({ nome: "", sobrenome: "", email: "", cargo: "", sobreMim: "", senha: "", cnpj: "" });
+  const [cadastroForm, setCadastroForm] = useState({ nome: "", email: "", senha: "", cnpj: "", endereco: "", setor: "" });
   const [cadastroErro, setCadastroErro] = useState("");
   const [cadastroSucesso, setCadastroSucesso] = useState("");
 
@@ -53,7 +53,7 @@ export default function LoginPage() {
       : "";
     const body = { ...cadastroForm };
     if (showCadastro === "empresa") delete body.sobrenome, delete body.cargo, delete body.sobreMim;
-    if (showCadastro === "estudante") delete body.cnpj;
+    if (showCadastro === "estudante") delete body.cnpj, delete body.endereco, delete body.setor;
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -65,7 +65,7 @@ export default function LoginPage() {
       })
       .then(() => {
         setCadastroSucesso("Cadastro realizado com sucesso! Faça login.");
-        setCadastroForm({ nome: "", sobrenome: "", email: "", cargo: "", sobreMim: "", senha: "", cnpj: "" });
+        setCadastroForm({ nome: "", sobrenome: "", email: "", cargo: "", sobreMim: "", senha: "", cnpj: "", endereco: "", setor: "" });
       })
       .catch((err) => setCadastroErro(err.message));
   }
@@ -129,10 +129,20 @@ export default function LoginPage() {
                 </>
               )}
               {showCadastro === "empresa" && (
-                <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>CNPJ</label>
-                  <input name="cnpj" value={cadastroForm.cnpj} onChange={handleCadastroChange} style={{ width: '100%', padding: 10, borderRadius: 7, border: '1px solid #bdbdbd', fontSize: 15, color: '#222', background: '#fff' }} required />
-                </div>
+                <>
+                  <div style={{ marginBottom: 18 }}>
+                    <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>CNPJ</label>
+                    <input name="cnpj" value={cadastroForm.cnpj} onChange={handleCadastroChange} style={{ width: '100%', padding: 10, borderRadius: 7, border: '1px solid #bdbdbd', fontSize: 15, color: '#222', background: '#fff' }} required />
+                  </div>
+                  <div style={{ marginBottom: 18 }}>
+                    <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>Endereço</label>
+                    <input name="endereco" value={cadastroForm.endereco} onChange={handleCadastroChange} style={{ width: '100%', padding: 10, borderRadius: 7, border: '1px solid #bdbdbd', fontSize: 15, color: '#222', background: '#fff' }} required />
+                  </div>
+                  <div style={{ marginBottom: 18 }}>
+                    <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>Setor</label>
+                    <input name="setor" value={cadastroForm.setor} onChange={handleCadastroChange} style={{ width: '100%', padding: 10, borderRadius: 7, border: '1px solid #bdbdbd', fontSize: 15, color: '#222', background: '#fff' }} required />
+                  </div>
+                </>
               )}
               <div style={{ marginBottom: 18 }}>
                 <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>E-mail</label>

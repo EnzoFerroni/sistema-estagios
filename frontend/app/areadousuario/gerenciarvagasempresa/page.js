@@ -5,7 +5,7 @@ const API_URL = "https://psychic-fishstick-w6ppqw44wrjhxpp-8080.app.github.dev";
 
 export default function GerenciarVagasEmpresaPage() {
   const [vagas, setVagas] = useState([]);
-  const [form, setForm] = useState({ titulo: "", descricao: "" });
+  const [form, setForm] = useState({ titulo: "", descricao: "", competencia: "" });
   const [editId, setEditId] = useState(null);
   const [estudantesPorVaga, setEstudantesPorVaga] = useState({});
   const [msg, setMsg] = useState("");
@@ -41,7 +41,7 @@ export default function GerenciarVagasEmpresaPage() {
     })
       .then(r => r.json())
       .then(() => {
-        setForm({ titulo: "", descricao: "" });
+        setForm({ titulo: "", descricao: "", competencia: "" });
         setEditId(null);
         setMsg(editId ? "Vaga atualizada!" : "Vaga criada!");
         atualizarVagas();
@@ -49,7 +49,7 @@ export default function GerenciarVagasEmpresaPage() {
   }
 
   function handleEdit(vaga) {
-    setForm({ titulo: vaga.titulo, descricao: vaga.descricao });
+    setForm({ titulo: vaga.titulo, descricao: vaga.descricao, competencia: vaga.competencia });
     setEditId(vaga.id);
   }
 
@@ -91,9 +91,13 @@ export default function GerenciarVagasEmpresaPage() {
           <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>Descrição</label>
           <textarea name="descricao" value={form.descricao} onChange={handleChange} style={{ width: '100%', padding: 10, borderRadius: 7, border: '1px solid #bdbdbd', fontSize: 15, minHeight: 60, color: '#222', background: '#fff' }} required />
         </div>
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ fontWeight: 700, color: '#1976d2', display: 'block', marginBottom: 4 }}>Competência</label>
+          <input name="competencia" value={form.competencia} onChange={handleChange} style={{ width: '100%', padding: 10, borderRadius: 7, border: '1px solid #bdbdbd', fontSize: 15, color: '#222', background: '#fff' }} required />
+        </div>
         <div style={{ display: 'flex', gap: 16 }}>
           <button type="submit" style={{ flex: 1, background: '#1976d2', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 0', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px #0001', cursor: 'pointer' }}>{editId ? "Salvar" : "Criar Vaga"}</button>
-          {editId && <button type="button" onClick={() => { setEditId(null); setForm({ titulo: "", descricao: "" }); }} style={{ flex: 1, background: '#eee', color: '#1976d2', border: 'none', borderRadius: 8, padding: '12px 0', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px #0001', cursor: 'pointer' }}>Cancelar</button>}
+          {editId && <button type="button" onClick={() => { setEditId(null); setForm({ titulo: "", descricao: "", competencia: "" }); }} style={{ flex: 1, background: '#eee', color: '#1976d2', border: 'none', borderRadius: 8, padding: '12px 0', fontWeight: 700, fontSize: 17, boxShadow: '0 2px 8px #0001', cursor: 'pointer' }}>Cancelar</button>}
         </div>
       </form>
       <h3 style={{ color: '#1976d2', marginBottom: 16 }}>Minhas Vagas</h3>
@@ -103,18 +107,20 @@ export default function GerenciarVagasEmpresaPage() {
             <tr>
               <th style={{ padding: 10 }}>Título</th>
               <th style={{ padding: 10 }}>Descrição</th>
+              <th style={{ padding: 10 }}>Competência</th>
               <th style={{ padding: 10 }}>Ações</th>
             </tr>
           </thead>
           <tbody>
             {vagas.length === 0 && (
-              <tr><td colSpan={3} style={{ textAlign: 'center', color: '#888' }}>Nenhuma vaga cadastrada</td></tr>
+              <tr><td colSpan={4} style={{ textAlign: 'center', color: '#888' }}>Nenhuma vaga cadastrada</td></tr>
             )}
             {vagas.map((vaga) => (
               <>
                 <tr key={vaga.id}>
                   <td style={{ padding: 8 }}>{vaga.titulo}</td>
                   <td style={{ padding: 8 }}>{vaga.descricao}</td>
+                  <td style={{ padding: 8 }}>{vaga.competencia}</td>
                   <td style={{ padding: 8, display: 'flex', gap: 8 }}>
                     <button onClick={() => handleEdit(vaga)} style={{ background: '#1976d2', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 'bold', cursor: 'pointer' }}>Editar</button>
                     <button onClick={() => handleDelete(vaga.id)} style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 'bold', cursor: 'pointer' }}>Excluir</button>
@@ -125,7 +131,7 @@ export default function GerenciarVagasEmpresaPage() {
                 </tr>
                 {vagasAbertas[vaga.id] && (
                   <tr>
-                    <td colSpan={3} style={{ background: '#f9f9fb', borderRadius: 8, padding: 0 }}>
+                    <td colSpan={4} style={{ background: '#f9f9fb', borderRadius: 8, padding: 0 }}>
                       <div style={{ padding: 18 }}>
                         <h4 style={{ color: '#1976d2', marginBottom: 12 }}>Estudantes inscritos</h4>
                         {estudantesPorVaga[vaga.id] === undefined ? (
