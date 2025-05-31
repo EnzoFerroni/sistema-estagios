@@ -1,20 +1,23 @@
 #!/bin/bash
-# Script para iniciar backend e frontend juntos
+# Inicia backend e frontend do Sistema de Estágios
+set -e
 
 # Função para encerrar o backend ao sair
+echo "Pressione Ctrl+C para encerrar o sistema."
 cleanup() {
   echo "Encerrando backend..."
-  kill $BACKEND_PID
+  kill $BACKEND_PID 2>/dev/null || true
   exit
 }
 trap cleanup SIGINT SIGTERM
 
-# Inicia o backend em background
-cd backend
+# Garante Java 17 para Maven
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 export MAVEN_OPTS="-Dmaven.compiler.fork=true -Dmaven.compiler.executable=$JAVA_HOME/bin/javac"
-echo "Iniciando backend..."
+
+# Inicia o backend em background
+cd backend
 mvn spring-boot:run &
 BACKEND_PID=$!
 cd ..
@@ -22,7 +25,7 @@ cd ..
 # Aguarda o backend subir corretamente
 for i in {1..30}; do
   sleep 1
-  if curl -s http://localhost:8080/estudantes > /dev/null; then
+  if curl -s http://localhost:8080/actuator/health > /dev/null; then
     echo "Backend iniciado com sucesso!"
     break
   fi
@@ -47,7 +50,9 @@ fi
 cd frontend
 
 echo "Iniciando frontend..."
-npm install
+if [ ! -d "node_modules" ]; then
+  npm install
+fi
 npm run dev
 
 # Ao sair do frontend, encerra o backend
