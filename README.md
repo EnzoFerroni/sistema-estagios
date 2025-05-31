@@ -17,6 +17,7 @@ Este projeto é uma plataforma para conectar estudantes e empresas em oportunida
    bash setup.sh
    ```
    O script irá:
+   - Atualizar a lista de pacotes e atualizar o sistema (`apt update` e `apt upgrade`)
    - Instalar Java 17, Maven, Node.js, npm e Git
    - Configurar JAVA_HOME
    - Exibir as versões instaladas
@@ -54,14 +55,14 @@ Este projeto é uma plataforma para conectar estudantes e empresas em oportunida
 3. **Aguarde o ambiente iniciar**
    - O Codespaces irá instalar as dependências automaticamente.
 
-6. **Instale as dependências**
+4. **Instale as dependências**
    - No terminal, execute:
      ```bash
      ./setup.sh
      ```
-   - O script irá instalar todas as dependências do backend e frontend automaticamente.
+   - O script irá atualizar o sistema e instalar todas as dependências do backend e frontend automaticamente.
 
-7. **Inicie o sistema (backend e frontend juntos)**
+5. **Inicie o sistema (backend e frontend juntos)**
    - No terminal, execute:
      ```bash
      ./start.sh
@@ -71,7 +72,7 @@ Este projeto é uma plataforma para conectar estudantes e empresas em oportunida
      - Iniciar o backend
      - Iniciar o frontend
 
-8. **Acesse a aplicação**
+6. **Acesse a aplicação**
    - Use os links do Codespaces para abrir o frontend e testar o sistema.
    - Se rodando local, acesse `http://localhost:3000` no navegador.
 

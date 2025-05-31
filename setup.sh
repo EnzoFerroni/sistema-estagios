@@ -7,9 +7,12 @@ set -e
 # Instalar dependências do sistema (Java, Maven, Node.js, npm, Git)
 echo "Instalando Java 17, Maven, Node.js, npm e Git..."
 sudo apt update
+sudo apt upgrade -y
 sudo apt install openjdk-17-jdk maven nodejs npm git -y
 
 # Configurar JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
 if ! grep -q 'JAVA_HOME' ~/.bashrc; then
   echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' >> ~/.bashrc
   echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
