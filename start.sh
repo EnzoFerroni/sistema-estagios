@@ -11,6 +11,9 @@ trap cleanup SIGINT SIGTERM
 
 # Inicia o backend em background
 cd backend
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+export MAVEN_OPTS="-Dmaven.compiler.fork=true -Dmaven.compiler.executable=$JAVA_HOME/bin/javac"
 echo "Iniciando backend..."
 mvn spring-boot:run &
 BACKEND_PID=$!

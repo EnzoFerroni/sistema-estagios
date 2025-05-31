@@ -19,6 +19,9 @@ if ! grep -q 'JAVA_HOME' ~/.bashrc; then
   source ~/.bashrc
 fi
 
+# Garante que o Maven use o Java 17
+export MAVEN_OPTS="-Dmaven.compiler.fork=true -Dmaven.compiler.executable=$JAVA_HOME/bin/javac"
+
 # Exibir versões instaladas
 java -version
 javac -version
