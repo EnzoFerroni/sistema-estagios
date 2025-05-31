@@ -45,6 +45,8 @@ public class EstudanteController {
     public void deletar(@PathVariable Long id) {
         // Deleta inscrições do estudante
         inscricaoRepository.deleteAll(inscricaoRepository.findByEstudanteId(id));
+        // Força o flush para garantir que as inscrições sejam removidas antes de deletar o estudante
+        inscricaoRepository.flush();
         // Deleta estudante
         estudanteRepository.deleteById(id);
     }

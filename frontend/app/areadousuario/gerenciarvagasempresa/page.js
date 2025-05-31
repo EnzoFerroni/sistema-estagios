@@ -1,7 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+function getCodespaceApiUrl() {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const match = host.match(/^([a-z0-9-]+)-3000\.app\.github\.dev$/);
+    if (match && match[1]) {
+      return `https://${match[1]}-8080.app.github.dev`;
+    }
+  }
+  return '';
+}
+const API_URL = getCodespaceApiUrl();
 
 export default function GerenciarVagasEmpresaPage() {
   const [vagas, setVagas] = useState([]);

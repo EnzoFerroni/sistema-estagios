@@ -2,7 +2,19 @@
 import './globals.css';
 import { useEffect, useState } from 'react';
 
-const API_URL = "https://psychic-fishstick-w6ppqw44wrjhxpp-8080.app.github.dev";
+// Detecta o nome do codespace pelo hostname do navegador
+function getCodespaceApiUrl() {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    // Exemplo: ubiquitous-space-goldfish-g9jjvgpw4xvhvg4p-3000.app.github.dev
+    const match = host.match(/^([a-z0-9-]+)-3000\.app\.github\.dev$/);
+    if (match && match[1]) {
+      return `https://${match[1]}-8080.app.github.dev`;
+    }
+  }
+  return '';
+}
+const API_URL = getCodespaceApiUrl();
 
 export default function Home() {
   const [dados, setDados] = useState({
@@ -13,7 +25,7 @@ export default function Home() {
     topEmpresas: []
   });
   useEffect(() => {
-    fetch(`${API_URL}/dashboard`).then(r => r.json()).then(setDados);
+    fetch(API_URL+`/dashboard`).then(r => r.json()).then(setDados);
   }, []);
   return (
     <div style={{ maxWidth: 900, margin: '40px auto', padding: 32, background: '#f9f9f9', borderRadius: 12, boxShadow: '0 2px 16px #0001' }}>

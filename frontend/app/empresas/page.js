@@ -1,7 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const API_URL = "https://psychic-fishstick-w6ppqw44wrjhxpp-8080.app.github.dev";
+function getCodespaceApiUrl() {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const match = host.match(/^([a-z0-9-]+)-3000\.app\.github\.dev$/);
+    if (match && match[1]) {
+      return `https://${match[1]}-8080.app.github.dev`;
+    }
+  }
+  return '';
+}
+const API_URL = getCodespaceApiUrl();
 
 export default function EmpresasPage() {
   const [empresas, setEmpresas] = useState([]);
