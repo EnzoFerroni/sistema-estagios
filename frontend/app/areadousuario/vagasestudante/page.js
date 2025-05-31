@@ -17,11 +17,22 @@ export default function VagasEstudantePage() {
       window.location.href = "/login";
       return;
     }
-    fetch(`${API_URL}/vagas`).then(r => r.json()).then(setVagas);
-    fetch(`${API_URL}/inscricoes/estudante/${estudanteId}`)
-      .then(r => r.json())
-      .then(setInscritas)
-      .finally(() => setLoading(false));
+    fetch(`${API_URL}/vagas`).then(r => r.json()).then(data => {
+      if (Array.isArray(data)) setVagas(data);
+      else setVagas([]);
+    });
+    if (estudanteId) {
+      fetch(`${API_URL}/inscricoes/estudante/${estudanteId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (Array.isArray(data)) setInscritas(data);
+          else setInscritas([]);
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setInscritas([]);
+      setLoading(false);
+    }
   }, [estudanteId]);
 
   function inscrever(vagaId) {
@@ -67,7 +78,10 @@ export default function VagasEstudantePage() {
             <tr>
               <th style={{ padding: 10 }}>Título</th>
               <th style={{ padding: 10 }}>Descrição</th>
+              <th style={{ padding: 10 }}>Competências</th>
+              <th style={{ padding: 10 }}>Endereço</th>
               <th style={{ padding: 10 }}>Empresa</th>
+              <th style={{ padding: 10 }}>Setor</th>
               <th style={{ padding: 10 }}>Ações</th>
             </tr>
           </thead>
@@ -76,7 +90,10 @@ export default function VagasEstudantePage() {
               <tr key={vaga.id}>
                 <td style={{ padding: 8 }}>{vaga.titulo}</td>
                 <td style={{ padding: 8 }}>{vaga.descricao}</td>
+                <td style={{ padding: 8 }}>{vaga.competencia}</td>
+                <td style={{ padding: 8 }}>{vaga.empresa?.endereco}</td>
                 <td style={{ padding: 8 }}>{vaga.empresa?.nome}</td>
+                <td style={{ padding: 8 }}>{vaga.empresa?.setor}</td>
                 <td style={{ padding: 8 }}>
                   {inscritas.some(i => i.vaga?.id === vaga.id) ? (
                     <span style={{ color: '#1976d2', fontWeight: 'bold' }}>Inscrito</span>
@@ -96,19 +113,25 @@ export default function VagasEstudantePage() {
             <tr>
               <th style={{ padding: 10 }}>Título</th>
               <th style={{ padding: 10 }}>Descrição</th>
+              <th style={{ padding: 10 }}>Competências</th>
+              <th style={{ padding: 10 }}>Endereço</th>
               <th style={{ padding: 10 }}>Empresa</th>
+              <th style={{ padding: 10 }}>Setor</th>
               <th style={{ padding: 10 }}>Ações</th>
             </tr>
           </thead>
           <tbody>
             {inscritas.length === 0 && (
-              <tr><td colSpan={4} style={{ textAlign: 'center', color: '#888' }}>Nenhuma inscrição realizada</td></tr>
+              <tr><td colSpan={7} style={{ textAlign: 'center', color: '#888' }}>Nenhuma inscrição realizada</td></tr>
             )}
             {inscritas.map((i) => (
               <tr key={i.id}>
                 <td style={{ padding: 8 }}>{i.vaga?.titulo}</td>
                 <td style={{ padding: 8 }}>{i.vaga?.descricao}</td>
+                <td style={{ padding: 8 }}>{i.vaga?.competencia}</td>
+                <td style={{ padding: 8 }}>{i.vaga?.empresa?.endereco}</td>
                 <td style={{ padding: 8 }}>{i.vaga?.empresa?.nome}</td>
+                <td style={{ padding: 8 }}>{i.vaga?.empresa?.setor}</td>
                 <td style={{ padding: 8 }}>
                   <button onClick={() => desinscrever(i.id)} style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: 6, padding: '6px 12px', fontWeight: 'bold', cursor: 'pointer' }}>Desinscrever</button>
                 </td>

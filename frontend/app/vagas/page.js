@@ -14,7 +14,12 @@ export default function VagasPage() {
   }, []);
 
   useEffect(() => {
-    fetch(`${API_URL}/vagas`).then((res) => res.json()).then(setVagas);
+    fetch(`${API_URL}/vagas`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setVagas(data);
+        else setVagas([]);
+      });
     fetch(`${API_URL}/empresas`).then((res) => res.json()).then(setEmpresas);
   }, []);
 
@@ -42,7 +47,12 @@ export default function VagasPage() {
       .then(() => {
         setForm({ titulo: "", descricao: "", empresa: null });
         setEditId(null);
-        fetch(`${API_URL}/vagas`).then((res) => res.json()).then(setVagas);
+        fetch(`${API_URL}/vagas`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (Array.isArray(data)) setVagas(data);
+            else setVagas([]);
+          });
       });
   }
 

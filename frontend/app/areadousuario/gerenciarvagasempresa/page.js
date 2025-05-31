@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const API_URL = "https://psychic-fishstick-w6ppqw44wrjhxpp-8080.app.github.dev";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export default function GerenciarVagasEmpresaPage() {
   const [vagas, setVagas] = useState([]);
@@ -16,13 +16,19 @@ export default function GerenciarVagasEmpresaPage() {
     if (!empresaId) return;
     fetch(`${API_URL}/vagas?empresaId=${empresaId}`)
       .then(r => r.json())
-      .then(setVagas);
+      .then(data => {
+        if (Array.isArray(data)) setVagas(data);
+        else setVagas([]);
+      });
   }, [empresaId]);
 
   function atualizarVagas() {
     fetch(`${API_URL}/vagas?empresaId=${empresaId}`)
       .then(r => r.json())
-      .then(setVagas);
+      .then(data => {
+        if (Array.isArray(data)) setVagas(data);
+        else setVagas([]);
+      });
   }
 
   function handleChange(e) {

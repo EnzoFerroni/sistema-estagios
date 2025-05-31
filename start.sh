@@ -17,7 +17,7 @@ BACKEND_PID=$!
 cd ..
 
 # Aguarda o backend subir corretamente
-for i in {1..20}; do
+for i in {1..30}; do
   sleep 1
   if curl -s http://localhost:8080/estudantes > /dev/null; then
     echo "Backend iniciado com sucesso!"
@@ -34,6 +34,12 @@ for i in {1..20}; do
   fi
   echo "Aguardando backend... ($i)"
 done
+
+# Publica a porta 8080 do Codespace automaticamente (se estiver em ambiente Codespaces)
+if [ ! -z "$CODESPACE_NAME" ]; then
+  echo "Tornando a porta 8080 pública no Codespaces..."
+  gh codespace ports visibility 8080:public -c "$CODESPACE_NAME"
+fi
 
 cd frontend
 
